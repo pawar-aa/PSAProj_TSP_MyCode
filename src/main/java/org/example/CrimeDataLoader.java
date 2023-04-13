@@ -16,16 +16,9 @@ public class CrimeDataLoader {
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
                 String id = row[0];
-                String month = row[1];
-                String reportedBy = row[2];
-                String fallsWithin = row[3];
-                String longitude = row[4];
-                String latitude = row[5];
-                String location = row[6];
-                String lsoaCode = row[7];
-                String lsoaName = row[8];
-                String crimeType = row[9];
-                Crime crime = new Crime(id, month, reportedBy, fallsWithin, longitude, latitude, location, lsoaCode, lsoaName, crimeType);
+                String longitude = row[1];
+                String latitude = row[2];
+                Crime crime = new Crime(id,longitude, latitude);
                 crimes.add(crime);
             }
             reader.close();

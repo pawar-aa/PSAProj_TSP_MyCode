@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     static int n;
@@ -8,11 +9,18 @@ public class Main {
     static ArrayList<Integer> tour;
 
     public static void main(String[] args) throws Exception {
-        // Load crime data from CSV file
-        String fileUrl = "file:src/main/resources/2023-01-avon-and-somerset-street.csv";
-        List<Crime> crimes = CrimeDataLoader.loadCrimeData(fileUrl);
+        // Load crime data from CSV file in a list
+        String fileUrl = "file:src/main/resources/info6205_spring2023_teamproject.csv";
+
+        // Remove duplicates from the list
+        List<Crime> crimes = CrimeDataLoader.loadCrimeData(fileUrl)
+                .stream()
+                .distinct() // remove duplicates based on the equals() and hashCode() methods overridden in the Crime class
+                .collect(Collectors.toList());
 
         n = crimes.size();
+
+        System.out.println(n);
 
         double[] lat = new double[n];
         double[] lon = new double[n];
@@ -22,7 +30,7 @@ public class Main {
                 lat[i] = Double.parseDouble(crimes.get(i).getLatitude());
                 lon[i] = Double.parseDouble(crimes.get(i).getLongitude());
 
-                System.out.println(lat[i] + "\t" + lon[i]);
+                //System.out.println(lat[i] + "\t" + lon[i]);
             }
         }
 
@@ -35,7 +43,7 @@ public class Main {
                 double dy = lon[i] - lon[j];
                 dist[i][j] = Math.sqrt(dx*dx + dy*dy);
 
-                System.out.println(dist[i][j]);
+                //System.out.println(dist[i][j]);
             }
         }
 
@@ -161,9 +169,9 @@ public class Main {
             int v = rand.nextInt(n-1) + 1;
             if (u != v) {
                 Collections.swap(tour, u, v);
-                System.out.println("u!=v\t"+ u + "\t" + v);
+                //System.out.println("u!=v\t"+ u + "\t" + v);
             } else {
-                System.out.println("u==v\t" + u + "\t" + v);
+                //System.out.println("u==v\t" + u + "\t" + v);
             }
         }
         return tour;
@@ -180,17 +188,17 @@ public class Main {
                     if (delta < 0) {
                         Collections.reverse(tour.subList(i, j+1));
                         improved = true;
-                        System.out.println("delta < 0");
+                        //System.out.println("delta < 0");
                     } else {
-                        System.out.println("delta >= 0");
+                        //System.out.println("delta >= 0");
                     }
                 }
             }
             if (!improved) {
-                System.out.println("not improved");
+                //System.out.println("not improved");
                 break;
             } else{
-                System.out.println("improved");
+                //System.out.println("improved");
             }
         }
         return tour;
