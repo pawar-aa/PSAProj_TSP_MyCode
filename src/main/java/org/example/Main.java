@@ -161,6 +161,9 @@ public class Main {
             int v = rand.nextInt(n-1) + 1;
             if (u != v) {
                 Collections.swap(tour, u, v);
+                System.out.println("u!=v\t"+ u + "\t" + v);
+            } else {
+                System.out.println("u==v\t" + u + "\t" + v);
             }
         }
         return tour;
@@ -177,11 +180,17 @@ public class Main {
                     if (delta < 0) {
                         Collections.reverse(tour.subList(i, j+1));
                         improved = true;
+                        System.out.println("delta < 0");
+                    } else {
+                        System.out.println("delta >= 0");
                     }
                 }
             }
             if (!improved) {
+                System.out.println("not improved");
                 break;
+            } else{
+                System.out.println("improved");
             }
         }
         return tour;
